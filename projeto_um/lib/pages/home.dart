@@ -19,6 +19,53 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Center(child: Text('Fase 1')),
       ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            const UserAccountsDrawerHeader(
+              accountName: Text('Denise'),
+              accountEmail: Text('denise.luvoir@gmail.com'),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.amberAccent,
+                child: Text('D'),
+              ),
+            ),
+            ListTile(
+              title: Text('Pagina 1'),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () {
+                _pageController.jumpToPage(0);
+                Navigator.pop(context);
+                setState(() {
+                  indexBottonNavigationBar = 0;
+                });
+              },
+            ),
+            ListTile(
+              title: Text('Pagina 2'),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () {
+                _pageController.jumpToPage(1);
+                Navigator.pop(context);
+                setState(() {
+                  indexBottonNavigationBar = 1;
+                });
+              },
+            ),
+            ListTile(
+              title: Text('Pagina 3'),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () {
+                _pageController.jumpToPage(2);
+                Navigator.pop(context);
+                setState(() {
+                  indexBottonNavigationBar = 2;
+                });
+              },
+            ),
+          ],
+        ),
+      ),
       body: PageView(
         controller: _pageController,
         children: [
