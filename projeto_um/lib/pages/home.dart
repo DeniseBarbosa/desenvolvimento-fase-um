@@ -1,61 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_um/pages/pageViews/one_page.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final PageController _pageController = PageController();
+
+  int indexBottonNavigationBar = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Fase 1')),
+        title: const Center(child: Text('Fase 1')),
       ),
-      body: Column(
+      body: PageView(
+        controller: _pageController,
         children: [
-          Container(
-            height: 200,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(color: Colors.pink),
-            child: Center(
-              child: Text(
-                'Desenvolvimento mobile',
-                style: TextStyle(color: Colors.white, fontSize: 30),
-              ),
-            ),
-          ),
-          Row(
-            children: [
-              Container(
-                color: Colors.brown,
-                height: 100,
-                width: 190,
-                child: Center(
-                    child: Text(
-                  'Linha 1',
-                  style: TextStyle(color: Colors.white),
-                )),
-              ),
-              Container(
-                color: Color.fromARGB(255, 230, 70, 12),
-                height: 100,
-                width: 202,
-                child: Center(
-                    child: Text(
-                  'Linha 2',
-                  style: TextStyle(color: Colors.white),
-                )),
-              )
-            ],
-          )
+          const PaginaUm(),
+          Container(color: Colors.grey),
+          Container(color: Colors.tealAccent)
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(items: [
-        BottomNavigationBarItem(
-            icon: Icon(Icons.ac_unit_sharp), label: 'Menu 1'),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.ac_unit_sharp), label: 'Menu 2'),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.ac_unit_sharp), label: 'Menu 3')
-      ]),
+      bottomNavigationBar: BottomNavigationBar(
+          currentIndex: indexBottonNavigationBar,
+          onTap: (int index) {
+            setState(() {
+              indexBottonNavigationBar = index;
+            });
+            _pageController.animateToPage(index,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.ease);
+          },
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.ac_unit_sharp), label: 'Tela 1'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.ac_unit_sharp), label: 'Tela 2'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.ac_unit_sharp), label: 'Tela 3')
+          ]),
     );
   }
 }
